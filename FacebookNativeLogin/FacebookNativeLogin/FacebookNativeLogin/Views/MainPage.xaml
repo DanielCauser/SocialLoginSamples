@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="FacebookNativeLogin.Views.MainPage"
+			 xmlns:local="clr-namespace:FacebookNativeLogin.Views.Converters"
+             Title="{Binding Title}">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<local:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	
+	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+		<Label Text="Welcome to facebook login sample app." />
+		
+		<Button Text="Logout" 
+				Command="{Binding FacebookLogoutCommand}" 
+				IsVisible="{Binding IsLogedIn}" />
+
+		<Button Text="Facebook Login" 
+				Command="{Binding FacebookLoginCommand}"
+				IsVisible="{Binding IsLogedIn, Converter={StaticResource InvertBooleanConverter}}"/>
+
+		<Image Source="{Binding FacebookUser.Picture}" 
+			   IsVisible="{Binding IsLogedIn}"/>
+		
+		<Label Text="{Binding FacebookUser.FirstName}" 
+			   IsVisible="{Binding IsLogedIn}"/>
+
+		<Label Text="{Binding FacebookUser.Email}" 
+			   IsVisible="{Binding IsLogedIn}"/>
+	</StackLayout>
+</ContentPage>
