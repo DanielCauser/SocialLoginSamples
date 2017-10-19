@@ -8,6 +8,7 @@ using Prism.Unity;
 using Microsoft.Practices.Unity;
 using Xamarin.Forms;
 using FacebookNativeLogin.Services.Contracts;
+using Facebook.CoreKit;
 
 namespace FacebookNativeLogin.iOS
 {
@@ -31,6 +32,18 @@ namespace FacebookNativeLogin.iOS
 			LoadApplication(new App(new iOSInitializer()));
 
 			return base.FinishedLaunching(app, options);
+		}
+
+		public override void OnActivated(UIApplication uiApplication)
+		{
+			base.OnActivated(uiApplication);
+			AppEvents.ActivateApp();
+		}
+
+		public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+		{
+			//return base.OpenUrl(application, url, sourceApplication, annotation);
+			return ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation);
 		}
 	}
 
