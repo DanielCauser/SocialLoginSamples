@@ -4189,9 +4189,6 @@ namespace FacebookNativeLogin.Droid
 			// aapt resource value: 0x7f070056
 			public const int facebook_app_id = 2131165270;
 			
-			// aapt resource value: 0x7f070057
-			public const int fb_login_protocol_scheme = 2131165271;
-			
 			// aapt resource value: 0x7f070017
 			public const int messenger_send_button_text = 2131165207;
 			
