@@ -136,6 +136,10 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GoogleNativeLogin.JavaBinding\GoogleNativeLogin.JavaBinding.csproj">
+      <Project>{f3435afa-5a0e-4076-9484-4c96494bf76e}</Project>
+      <Name>GoogleNativeLogin.JavaBinding</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoogleNativeLogin\GoogleNativeLogin.csproj">
       <Name>GoogleNativeLogin</Name>
     </ProjectReference>
