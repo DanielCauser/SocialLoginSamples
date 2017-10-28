@@ -24,9 +24,9 @@ namespace GoogleNativeLogin.Droid
 
 			base.OnCreate(bundle);
 
-            //GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
-            //                                                 .RequestEmail()
-            //                                                 .Build();
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
+                                                             .RequestEmail()
+                                                             .Build();
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 

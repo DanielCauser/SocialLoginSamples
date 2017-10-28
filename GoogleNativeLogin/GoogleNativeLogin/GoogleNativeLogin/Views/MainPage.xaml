@@ -4,12 +4,24 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="GoogleNativeLogin.Views.MainPage"
+             xmlns:local="clr-namespace:GoogleNativeLogin.Views.Converters"
              Title="MainPage">
-  <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <Label Text="Welcome to Google login sample app." />
-        
-        <Button Text="Login" 
-                Command="{Binding GoogleLoginCommand}" 
+
+        <Button Text="Google Login" 
+                Command="{Binding GoogleLoginCommand}"
+                IsVisible="{Binding IsLogedIn, Converter={StaticResource InvertBooleanConverter}}"/>
+
+        <Button Text="Logout" 
+                Command="{Binding GoogleLogoutCommand}" 
                 IsVisible="{Binding IsLogedIn}" />
     </StackLayout>
 </ContentPage>
