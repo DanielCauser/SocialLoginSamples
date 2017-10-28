@@ -8,6 +8,9 @@ using Android.Widget;
 using Android.OS;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using Android.Gms.Auth.Api.SignIn;
+using GoogleNativeLogin.Services.Contracts;
+using Xamarin.Forms;
 
 namespace GoogleNativeLogin.Droid
 {
@@ -21,7 +24,13 @@ namespace GoogleNativeLogin.Droid
 
 			base.OnCreate(bundle);
 
+            //GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
+            //                                                 .RequestEmail()
+            //                                                 .Build();
+
 			global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            DependencyService.Register<IGoogleManager, GoogleManager>();
 			LoadApplication(new App(new AndroidInitializer()));
 		}
 	}
