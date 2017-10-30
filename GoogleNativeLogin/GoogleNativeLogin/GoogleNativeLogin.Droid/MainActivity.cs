@@ -22,25 +22,12 @@ namespace GoogleNativeLogin.Droid
     [Activity(Label = "GoogleNativeLogin", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        public void LaunchIntent(Intent intent)
-        {
-            StartActivityForResult(intent, 1);
-        }
-
-        protected override void OnCreate(Bundle bundle)
+		protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.tabs;
             ToolbarResource = Resource.Layout.toolbar;
 
             base.OnCreate(bundle);
-
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
-                                                             .RequestEmail()
-                                                             .Build();
-
-            GoogleNativeLogin.Droid.GoogleManager._googleApiClient = new GoogleApiClient.Builder(this)
-                .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .Build();
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 

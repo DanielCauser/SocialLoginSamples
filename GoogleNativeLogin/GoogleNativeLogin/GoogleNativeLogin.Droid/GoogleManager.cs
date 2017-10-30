@@ -15,6 +15,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using GoogleNativeLogin.Services.Contracts;
+using Xamarin.Forms;
 
 namespace GoogleNativeLogin.Droid
 {
@@ -22,22 +23,32 @@ namespace GoogleNativeLogin.Droid
     {
         public static GoogleApiClient _googleApiClient { get; set; }
 
-        Action<GoogleSignInResult> SigninResult; 
+		public GoogleManager()
+		{
+			GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
+															 .RequestEmail()
+															 .Build();
 
-        public GoogleManager()
-        {
-            _googleApiClient.RegisterConnectionCallbacks(this);
-        }
+			_googleApiClient = new GoogleApiClient.Builder(((MainActivity)Forms.Context).ApplicationContext)
+				.AddConnectionCallbacks(this)
+				.AddOnConnectionFailedListener(this)
+				.AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
+				.AddScope(new Scope(Scopes.Profile))
+				.Build();
+		}
 
-        public void Login()
+		public void Login()
         {
-            Auth.GoogleSignInApi.SilentSignIn(_googleApiClient).SetResultCallback<GoogleSignInResult>(SigninResult);
-        }
+			Intent signInIntent = Auth.GoogleSignInApi.GetSignInIntent(_googleApiClient);
+			((MainActivity)Forms.Context).StartActivityForResult(signInIntent, 1);
+			_googleApiClient.Connect();
+		}
 
         public void Logout()
         {
-            //Auth.GoogleSignInApi.SignOut(_googleApiClient).SetResultCallback();
-        }
+			_googleApiClient.Disconnect();
+			//Auth.GoogleSignInApi.SignOut(_googleApiClient).SetResultCallback();
+		}
 
         public void OnConnected(Bundle connectionHint)
         {
