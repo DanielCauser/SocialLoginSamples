@@ -23,5 +23,14 @@
         <Button Text="Logout" 
                 Command="{Binding GoogleLogoutCommand}" 
                 IsVisible="{Binding IsLogedIn}" />
+        
+        <Image Source="{Binding GoogleUser.Picture}" 
+               IsVisible="{Binding IsLogedIn}"/>
+        
+        <Label Text="{Binding GoogleUser.Name}" 
+               IsVisible="{Binding IsLogedIn}"/>
+
+        <Label Text="{Binding GoogleUser.Email}" 
+               IsVisible="{Binding IsLogedIn}"/>
     </StackLayout>
 </ContentPage>

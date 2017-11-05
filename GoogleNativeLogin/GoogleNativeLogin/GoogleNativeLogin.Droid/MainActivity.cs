@@ -43,7 +43,7 @@ namespace GoogleNativeLogin.Droid
             if (requestCode == 1)
             {
                 GoogleSignInResult result = Auth.GoogleSignInApi.GetSignInResultFromIntent(data);
-                //HandleSignInResult(result);
+                GoogleManager.Instance.OnAuthCompleted(result);
             }
         }
     }

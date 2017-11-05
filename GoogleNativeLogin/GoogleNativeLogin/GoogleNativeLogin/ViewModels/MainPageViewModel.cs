@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GoogleNativeLogin.Services.Contracts;
 using Prism.Services;
+using GoogleNativeLogin.Models;
 
 namespace GoogleNativeLogin.ViewModels
 {
@@ -32,6 +33,14 @@ namespace GoogleNativeLogin.ViewModels
             set { SetProperty(ref _isLogedIn, value); }
         }
 
+        private GoogleUser _googleUser;
+
+        public GoogleUser GoogleUser
+        {
+            get { return _googleUser; }
+            set { SetProperty(ref _googleUser, value); }
+        }
+
         public MainPageViewModel(IGoogleManager googleManager, IPageDialogService dialogService)
 		{
             _googleManager = googleManager;
@@ -50,8 +59,21 @@ namespace GoogleNativeLogin.ViewModels
 
         private void GoogleLogin()
         {
-            _googleManager.Login();
-            IsLogedIn = true;
+            _googleManager.Login(OnLoginComplete);
+
+        }
+
+        private void OnLoginComplete(GoogleUser googleUser, string message)
+        {
+            if (googleUser != null)
+            {
+                GoogleUser = googleUser;
+                IsLogedIn = true;
+            }
+            else
+            {
+                _dialogService.DisplayAlertAsync("Error", message, "Ok");
+            }
         }
 
 		public void OnNavigatedFrom(NavigationParameters parameters)
