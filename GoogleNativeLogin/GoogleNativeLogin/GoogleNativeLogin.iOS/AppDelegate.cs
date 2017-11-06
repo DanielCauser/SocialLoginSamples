@@ -6,6 +6,9 @@ using Foundation;
 using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using GoogleNativeLogin.Services.Contracts;
+using Xamarin.Forms;
+using Google.SignIn;
 
 namespace GoogleNativeLogin.iOS
 {
@@ -25,10 +28,22 @@ namespace GoogleNativeLogin.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init();
+
+            DependencyService.Register<IGoogleManager, GoogleManager>();
+            var googleServiceDictionary = NSDictionary.FromFile("GoogleService-Info.plist");
+            SignIn.SharedInstance.ClientID = googleServiceDictionary["CLIENT_ID"].ToString();
+
 			LoadApplication(new App(new iOSInitializer()));
 
 			return base.FinishedLaunching(app, options);
 		}
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            var openUrlOptions = new UIApplicationOpenUrlOptions(options);
+            return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
+            //return base.OpenUrl(app, url, options);
+        }
 	}
 
 	public class iOSInitializer : IPlatformInitializer
