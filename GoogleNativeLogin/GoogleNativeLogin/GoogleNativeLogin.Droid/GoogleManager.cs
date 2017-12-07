@@ -63,7 +63,7 @@ namespace GoogleNativeLogin.Droid
 				{
 					Name = accountt.DisplayName,
 					Email = accountt.Email,
-					Picture = new Uri(accountt.PhotoUrl.ToString())
+					Picture = new Uri((accountt.PhotoUrl != null ? $"{accountt.PhotoUrl}" : $"https://autisticdating.net/imgs/profile-placeholder.jpg")
 				}, string.Empty);
 			}
 			else
