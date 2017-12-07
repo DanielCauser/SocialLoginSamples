@@ -59,11 +59,13 @@ namespace GoogleNativeLogin.Droid
 			if (result.IsSuccess)
 			{
 				GoogleSignInAccount accountt = result.SignInAccount;
+				bool urlIsValid = true;
+				if(accountt.PhotoUrl == null){ urlIsValid = false;}
 				_onLoginComplete?.Invoke(new GoogleUser()
 				{
 					Name = accountt.DisplayName,
 					Email = accountt.Email,
-					Picture = new Uri(accountt.PhotoUrl.ToString())
+					Picture = new Uri(urlIsValid ? $"{accountt.PhotoUrl}" : $"https://autisticdating.net/imgs/profile-placeholder.jpg")
 				}, string.Empty);
 			}
 			else
