@@ -25,8 +25,10 @@ namespace GoogleNativeLogin.iOS
 			var vc = window.RootViewController;
 			while (vc.PresentedViewController != null)
 			{
-				_viewController = vc.PresentedViewController;
+				vc = vc.PresentedViewController;
 			}
+
+			_viewController = vc;
 
 			SignIn.SharedInstance.SignInUser();
 		}
