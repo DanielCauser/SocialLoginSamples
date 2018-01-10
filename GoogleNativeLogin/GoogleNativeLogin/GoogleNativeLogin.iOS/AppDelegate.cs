@@ -42,7 +42,6 @@ namespace GoogleNativeLogin.iOS
         {
             var openUrlOptions = new UIApplicationOpenUrlOptions(options);
             return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
-            //return base.OpenUrl(app, url, options);
         }
 	}
 

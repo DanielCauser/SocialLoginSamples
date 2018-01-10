@@ -20,11 +20,12 @@ namespace GoogleNativeLogin.iOS
 		public void Login(Action<GoogleNativeLogin.Models.GoogleUser, string> OnLoginComplete)
 		{
 			_onLoginComplete = OnLoginComplete;
+
 			var window = UIApplication.SharedApplication.KeyWindow;
 			var vc = window.RootViewController;
 			while (vc.PresentedViewController != null)
 			{
-				vc = vc.PresentedViewController;
+				_viewController = vc.PresentedViewController;
 			}
 
 			SignIn.SharedInstance.SignInUser();
@@ -64,13 +65,13 @@ namespace GoogleNativeLogin.iOS
 		[Export("signIn:presentViewController:")]
 		public void PresentViewController(SignIn signIn, UIViewController viewController)
 		{
-			_viewController.PresentViewController(viewController, true, null);
+			_viewController?.PresentViewController(viewController, true, null);
 		}
 
 		[Export("signIn:dismissViewController:")]
 		public void DismissViewController(SignIn signIn, UIViewController viewController)
 		{
-			_viewController.DismissViewController(true, null);
+			_viewController?.DismissViewController(true, null);
 		}
 	}
 }
